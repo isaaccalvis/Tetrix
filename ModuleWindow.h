@@ -10,9 +10,9 @@ public:
 	ModuleWindow();
 	~ModuleWindow();
 	bool Init();
-	bool Finihs();
+	bool Finish();
 public:
 	SDL_Window* window = nullptr;
 	SDL_Surface* screen_surface = nullptr;
 };
-#endif // !__ModuleWindow_H__
+#endif

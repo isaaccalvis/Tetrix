@@ -2,11 +2,15 @@
 #include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
+#include "ModuleRender.h"
+#include "ModuleBlocs.h"
 
 Application::Application() {
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
-	modules[i++] = window = new ModuleInput();
+	modules[i++] = input = new ModuleInput();
+	modules[i++] = render = new ModuleRender();
+	modules[i++] = blocs = new ModuleBlocs();
 }
 
 Application::~Application() {

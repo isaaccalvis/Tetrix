@@ -3,6 +3,8 @@
 #include "Module.h"
 #include "SDL\include\SDL_rect.h"
 
+#define MAX_TEXTURES 10
+
 struct SDL_Renderer;
 struct SDL_Texture;
 
@@ -14,10 +16,13 @@ public:
 	bool Update();
 	bool Finish();
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed = 1.0f);
-	bool CleanRender();
+	void CleanRender();
+	SDL_Texture* newTexture(const char* direccio);
 public:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect camera;
+	SDL_Texture* textures[MAX_TEXTURES];
+	unsigned short last_texture = 0;
 };
 
 #endif

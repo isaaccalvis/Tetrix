@@ -3,7 +3,9 @@
 #include <stdio.h>
 #define print printf
 
+typedef unsigned int uint;
+
 #define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 256
+#define SCREEN_HEIGHT 720
 
 #endif

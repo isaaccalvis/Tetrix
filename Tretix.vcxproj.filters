@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Bases">
       <UniqueIdentifier>{e216c129-4f6b-4563-bf71-1cad31b77436}</UniqueIdentifier>
     </Filter>
@@ -12,11 +8,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Bases</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Bases</Filter>
     </ClCompile>
@@ -24,6 +21,18 @@
       <Filter>Bases</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
+      <Filter>Moduls</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInput.cpp">
+      <Filter>Moduls</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleRender.cpp">
+      <Filter>Moduls</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleBlocs.cpp">
       <Filter>Moduls</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,6 +44,15 @@
       <Filter>Moduls</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
+      <Filter>Moduls</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleInput.h">
+      <Filter>Moduls</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleRender.h">
+      <Filter>Moduls</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleBlocs.h">
       <Filter>Moduls</Filter>
     </ClInclude>
   </ItemGroup>
