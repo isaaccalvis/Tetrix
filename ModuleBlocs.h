@@ -7,10 +7,11 @@
 #include "ModuleRender.h"
 
 #include "SDL/include/SDL.h"
-#include "SDL_image\include\SDL_image.h"
+#include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
 #define MAX_BLOCS_STRUCT 4
+#define MAX_BLOCS 160
 
 enum colorBlocs {
 	NONE_COLOR = 0,
@@ -65,7 +66,7 @@ public:
 			break;
 		case recta:
 			blocs[0] = new blocBasic(newColor, 0, 0);
-			blocs[1] = new blocBasic(newColor, 10, 10);
+			blocs[1] = new blocBasic(newColor, 50, 50);
 			break;
 		}
 	}
@@ -75,6 +76,7 @@ public:
 	bool moventse = true;
 
 };
+
 class ModuleBlocs : public Module {
 public:
 	ModuleBlocs();
@@ -83,10 +85,12 @@ public:
 	bool Init();
 	bool Update();
 	bool Finish();
+	bool CreateBlocSimple();
 	bool CreateBlocEstructure();
 
 public:
 	SDL_Texture* texturaBlocBlau = nullptr;
-
+	SDL_Rect rectBlocPerTextura = { 0,0,32,32 }; // 16 es l'alçada i amplada dels blocs (0-15)
+	blocBasic* blocs[MAX_BLOCS];
 };
 #endif

@@ -35,6 +35,9 @@
     <ClCompile Include="ModuleBlocs.cpp">
       <Filter>Moduls</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleBackground.cpp">
+      <Filter>Moduls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -53,6 +56,9 @@
       <Filter>Moduls</Filter>
     </ClInclude>
     <ClInclude Include="ModuleBlocs.h">
+      <Filter>Moduls</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleBackground.h">
       <Filter>Moduls</Filter>
     </ClInclude>
   </ItemGroup>

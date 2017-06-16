@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "Application.h"
 #include "Globals.h"
 
@@ -18,7 +17,6 @@ Application* App = nullptr;
 
 int main(int argc, char* argv[]) {
 	main_states state = MAIN_CREATION;
-
 	while (state != MAIN_EXIT) {
 		switch (state) {
 		case MAIN_CREATION:
@@ -38,13 +36,11 @@ int main(int argc, char* argv[]) {
 			if (update_return == false)
 				state = MAIN_FINISH;
 		}break;
-
 		case MAIN_FINISH:
 			if (App->Finish() == true)
 				return 0;
 			state = MAIN_EXIT;
 			break;
-
 		}
 	}
 	delete App;

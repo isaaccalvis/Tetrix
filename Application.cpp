@@ -4,12 +4,14 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleBlocs.h"
+#include "ModuleBackground.h"
 
 Application::Application() {
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = render = new ModuleRender();
+	modules[i++] = background = new ModuleBackground();
 	modules[i++] = blocs = new ModuleBlocs();
 }
 
@@ -31,6 +33,8 @@ bool Application::Update() {
 	bool ret = true;
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->IsEnabled() ? modules[i]->Update() : ret;
+	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
+		ret = modules[i]->IsEnabled() ? modules[i]->PostUpdate() : ret;
 	return ret;
 }
 

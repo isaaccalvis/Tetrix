@@ -20,7 +20,6 @@ bool ModuleRender::Init() {
 	bool ret = true;
 	Uint32 flags = 0;
 	flags |= SDL_RENDERER_PRESENTVSYNC;
-
 	renderer = SDL_CreateRenderer(App->window->window, -1, flags);
 	if (renderer == NULL) {
 		print("SDL_Render can't load");
@@ -31,19 +30,25 @@ bool ModuleRender::Init() {
 }
 
 bool ModuleRender::Update() {
-
+	SDL_RenderClear(renderer);
 	return true;
 }
+
+bool ModuleRender::PostUpdate() {
+	SDL_RenderPresent(renderer);
+	return true;
+}
+
 bool ModuleRender::Finish() {
 	SDL_DestroyRenderer(renderer);
-	// NETEJA DE TEXTURES
 	for (unsigned short i = 0; i < MAX_TEXTURES; i++) {
 		if (textures[i] != nullptr)
 			SDL_DestroyTexture(textures[i]);
 	}
 	return true;
 }
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed){
+
+bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section){
 	bool ret = true;
 	SDL_Rect rectIntern;
 	rectIntern.x = x;
@@ -55,8 +60,7 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	}
 	else
 		SDL_QueryTexture(texture, NULL, NULL, &rectIntern.w, &rectIntern.h);
-
-	if (SDL_RenderCopy(App->render->renderer, texture, section, &rectIntern) != 0)
+	if (SDL_RenderCopy(renderer, texture, section, &rectIntern) != 0)
 		ret = false;
 	return ret;
 }
@@ -66,10 +70,12 @@ void ModuleRender::CleanRender() {
 }
 
 SDL_Texture* ModuleRender::newTexture(const char* direccio) {
-	SDL_Surface* surface = IMG_Load(direccio);
+	SDL_Surface* surface;
+	surface = IMG_Load(direccio);
 	SDL_Texture* texture = NULL;
-	texture = SDL_CreateTextureFromSurface(App->render->renderer, surface);
-	textures[last_texture++] = texture;
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	if (textures != nullptr)
+		textures[last_texture++] = texture;
 	SDL_FreeSurface(surface);
 	return texture;
 }

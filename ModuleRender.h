@@ -14,8 +14,9 @@ public:
 	~ModuleRender();
 	bool Init();
 	bool Update();
+	bool PostUpdate();
 	bool Finish();
-	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed = 1.0f);
+	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section);
 	void CleanRender();
 	SDL_Texture* newTexture(const char* direccio);
 public:

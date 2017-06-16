@@ -9,6 +9,7 @@ public:
 
 	virtual bool Init() { return true; }
 	virtual bool Update() { return true; }
+	virtual bool PostUpdate() { return true; }
 	virtual bool Finish() { return true; }
 
 	bool IsEnabled() const { return enabled; }
