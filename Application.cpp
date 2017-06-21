@@ -4,7 +4,9 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleBlocs.h"
+#include "ModuleBasicBloc.h"
 #include "ModuleBackground.h"
+#include "ModulePlayer.h"
 
 Application::Application() {
 	int i = 0;
@@ -13,6 +15,9 @@ Application::Application() {
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = background = new ModuleBackground();
 	modules[i++] = blocs = new ModuleBlocs();
+	modules[i++] = basicBloc = new blocBasic();
+	modules[i++] = player = new ModulePlayer();
+
 }
 
 Application::~Application() {

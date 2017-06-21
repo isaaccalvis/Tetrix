@@ -5,92 +5,44 @@
 #include "Globals.h"
 #include "Module.h"
 #include "ModuleRender.h"
-
-#include "SDL/include/SDL.h"
-#include "SDL_image/include/SDL_image.h"
-#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
-
-#define MAX_BLOCS_STRUCT 4
-#define MAX_BLOCS 160
-
-enum colorBlocs {
-	NONE_COLOR = 0,
-	blau,
-	groc,
-	lila,
-	rosa,
-	verd,
-	vermell,
-};
-
-enum formaStructBloc {
-	NONE_STRUCT = 0,
-	recta,
-	eleR,
-	eleL,
-	creu,
-	escalaR,
-	escalaL,
-	cuadrat,
-	te,
-};
-
-class blocBasic {
-private:
-	bool viu = true;
-	colorBlocs color = NONE_COLOR;
-public:
-	blocBasic(colorBlocs newColor, int Nx, int Ny) {
-		color = newColor;
-		x = Nx;
-		y = Ny;
-	}
-	blocBasic(){}
-	int x, y;
-	bool estaViu() {
-		return viu;
-	}
-	void changeColor(colorBlocs newColor) {
-		color = newColor;
-	}
-	void pintarBlocs();
-};
+#include "ModuleBasicBloc.h"
 
 class blocStruct {
 private:
-	blocBasic* blocs[MAX_BLOCS_STRUCT];
+	int llocDelsBlocsStruct[MAX_BLOCS_STRUCT];
+	formaStructBloc formaStruct;
+	bool angleColl[3] = { false,false,false }; // 0->down, 1->right, 2->left
 public:
-	blocStruct(formaStructBloc formaStruct, colorBlocs newColor) {
-		switch (formaStruct) {
-		case NONE_STRUCT:
-			break;
-		case recta:
-			blocs[0] = new blocBasic(newColor, 0, 0);
-			blocs[1] = new blocBasic(newColor, 50, 50);
-			break;
-		}
-	}
-	~blocStruct() {
-		delete[] blocs; // posible generador de memori leaks
-	}
+	int copiaLlocDelsBlocsStruct[MAX_BLOCS_STRUCT];
+	blocStruct() { print("Sha creat un blocStruct sense valors"); }
+	blocStruct(formaStructBloc forma, colorBlocs color, int x, int y);
+	~blocStruct(){}
 	bool moventse = true;
-
+	void moureStruct(posMov posMov);
+	void comprobarXoc();
+	void copiarLlocDelsBlocsStruct();
+	void angleCollDet(posMov posColl, bool det);
 };
 
 class ModuleBlocs : public Module {
 public:
-	ModuleBlocs();
-	~ModuleBlocs();
+	ModuleBlocs(){}
+	~ModuleBlocs(){}
 
 	bool Init();
 	bool Update();
 	bool Finish();
-	bool CreateBlocSimple();
-	bool CreateBlocEstructure();
 
 public:
 	SDL_Texture* texturaBlocBlau = nullptr;
-	SDL_Rect rectBlocPerTextura = { 0,0,32,32 }; // 16 es l'alçada i amplada dels blocs (0-15)
+	SDL_Texture* texturaBlocGroc = nullptr;
+	SDL_Texture* texturaBlocLila = nullptr;
+	SDL_Texture* texturaBlocRosa = nullptr;
+	SDL_Texture* texturaBlocVerd = nullptr;
+	SDL_Texture* texturaBlocVermell = nullptr;
+
+	SDL_Rect rectBlocPerTextura = { 0,0,32,32 }; // 32 es l'alçada i amplada dels blocs
 	blocBasic* blocs[MAX_BLOCS];
+	blocStruct* structBlocActual = nullptr;
 };
 #endif

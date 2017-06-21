@@ -7,9 +7,9 @@ v0.1
 v0.2
 	- Bloc and bloc Structures working
 v0.3
-	- All bloc mecanics applied
-v0.4
 	- Interaction between blocs and the space ( limit down, lateral limits, bloc with bloc, etc... ), colliders
+v0.4
+	- All bloc mecanics applied
 v0.5
 	- Destruction of blocs ( when line is complete )
 v0.6
