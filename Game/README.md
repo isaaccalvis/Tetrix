@@ -9,11 +9,11 @@ v0.2
 v0.3
 	- Interaction between blocs and the space ( limit down, lateral limits, bloc with bloc, etc... ), colliders
 v0.4
-	- All bloc mecanics applied
+	-  Bloc v Bloc collision
 v0.5
-	- Destruction of blocs ( when line is complete )
+	- Spawn randomly structures, and rotation
 v0.6
-	- Spawn randomly structures
+	- Destruction of blocs ( when line is complete )
 v0.7
 	- Punctuation sistem, and menu
 v0.8

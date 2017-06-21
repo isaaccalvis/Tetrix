@@ -12,6 +12,7 @@ private:
 	int llocDelsBlocsStruct[MAX_BLOCS_STRUCT];
 	formaStructBloc formaStruct;
 	bool angleColl[3] = { false,false,false }; // 0->down, 1->right, 2->left
+	int current_time;
 public:
 	int copiaLlocDelsBlocsStruct[MAX_BLOCS_STRUCT];
 	blocStruct() { print("Sha creat un blocStruct sense valors"); }
@@ -22,6 +23,8 @@ public:
 	void comprobarXoc();
 	void copiarLlocDelsBlocsStruct();
 	void angleCollDet(posMov posColl, bool det);
+	bool retAngleColl(int num) { return angleColl[num]; }
+	void normalFall();
 };
 
 class ModuleBlocs : public Module {

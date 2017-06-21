@@ -10,7 +10,7 @@ typedef unsigned int uint;
 #define SCREEN_HEIGHT 720
 
 #define MAX_BLOCS_STRUCT 4
-#define MAX_BLOCS 160
+#define MAX_BLOCS 352
 
 enum colorBlocs {
 	NONE_COLOR = 0,
@@ -27,7 +27,6 @@ enum formaStructBloc {
 	recta,
 	eleR,
 	eleL,
-	creu,
 	escalaR,
 	escalaL,
 	cuadrat,
