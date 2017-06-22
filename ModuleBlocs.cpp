@@ -31,7 +31,8 @@ bool ModuleBlocs::Update() {
 
 	// REFRESH STRUCTURES ( THE PLAYING ONE )
 	if (structBlocActual == nullptr) {
-		structBlocActual = new blocStruct(te, blau, 288, 0);
+	//	structBlocActual = new blocStruct(formaStructBloc(App->getRamdomValue(7)+1), colorBlocs(App->getRamdomValue(6) + 1), 288, 0);
+		structBlocActual = new blocStruct(formaStructBloc(3), colorBlocs(App->getRamdomValue(6) + 1), 288, 0);
 
 		blocStruct(recta, blau, 320, 192);
 		blocStruct(te, lila, 448, 192);
@@ -54,6 +55,7 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 	case NONE_STRUCT:
 		break;
 	case recta:
+		formaStruct = forma;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (cont < 4) { // tamany de la recta
 				if (App->blocs->blocs[i] == nullptr) {
@@ -67,6 +69,7 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 		}
 		break;
 	case eleR:
+		formaStruct = forma;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (cont < 3) {
 				if (App->blocs->blocs[i] == nullptr) {
@@ -87,6 +90,7 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 		}
 		break;
 	case eleL:
+		formaStruct = forma;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (cont < 3) {
 				if (App->blocs->blocs[i] == nullptr) {
@@ -106,7 +110,8 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 				i = MAX_BLOCS;
 		}
 		break;
-	case escalaL:
+	case escalaR:
+		formaStruct = forma;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
@@ -124,7 +129,8 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 			}
 		}
 		break;
-	case escalaR:
+	case escalaL:
+		formaStruct = forma;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
@@ -143,6 +149,7 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 		}
 		break;
 	case cuadrat:
+		formaStruct = forma;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
@@ -161,6 +168,7 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 		}
 		break;
 	case te:
+		formaStruct = forma;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
@@ -171,7 +179,7 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 				else if (cont == 2)
 					App->blocs->blocs[i] = new blocBasic(color, x - 32, y );
 				else if (cont == 3)
-					App->blocs->blocs[i] = new blocBasic(color, x, y + (1 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x, y + 32);
 				cont++;
 				if (cont == 4)
 					i = MAX_BLOCS;
@@ -258,4 +266,205 @@ void blocStruct::normalFall() {
 				App->blocs->structBlocActual = nullptr;
 		}
 	}
+}
+
+void blocStruct::rotarStruct() {
+	if (App->blocs->structBlocActual != nullptr)
+		switch (App->blocs->structBlocActual->formaStruct) {
+		case recta:
+			if ((App->blocs->blocs[llocDelsBlocsStruct[0]]->y + 96) == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(RIGHT, 2) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(RIGHT, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[0]]->x - 96) == App->blocs->blocs[llocDelsBlocsStruct[3]]->x) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 2) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 64;
+				}
+			}
+			break;
+		case eleR:
+			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y - 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(LEFT, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 0;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(RIGHT, 2) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x + 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+				}
+			}
+			break;
+		case eleL:
+			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y - 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(LEFT, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(RIGHT, 2) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 0;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(RIGHT, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x + 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(DOWN, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+				}
+			}
+			break;
+		case escalaR:
+			if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y - 32 == App->blocs->blocs[llocDelsBlocsStruct[1]]->y) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
+				}
+			}
+			else if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y + 32 == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(RIGHT, 2) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
+				}
+			}
+			break;
+		case escalaL:
+			if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y - 32 == App->blocs->blocs[llocDelsBlocsStruct[1]]->y) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
+				}
+			}
+			else if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y + 32 == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(RIGHT, 2) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
+				}
+			}
+			break;
+		case cuadrat:
+
+			break;
+		case te:
+			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[3]]->x)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->x)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+				}
+			}
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->y)) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false) {
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+				}
+			}
+			break;
+		}
 }

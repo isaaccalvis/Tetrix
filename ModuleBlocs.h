@@ -25,6 +25,7 @@ public:
 	void angleCollDet(posMov posColl, bool det);
 	bool retAngleColl(int num) { return angleColl[num]; }
 	void normalFall();
+	void rotarStruct();
 };
 
 class ModuleBlocs : public Module {

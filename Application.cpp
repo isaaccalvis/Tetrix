@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <time.h>
 #include "Application.h"
 #include "Module.h"
 #include "ModuleWindow.h"
@@ -27,7 +29,7 @@ Application::~Application() {
 
 bool Application::Init() {
 	bool ret = true;
-
+	srand(time(NULL));
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
 
@@ -50,4 +52,8 @@ bool Application::Finish() {
 		ret = modules[i]->Finish();
 
 	return ret;
+}
+
+int Application::getRamdomValue(int maxNum) {
+	return rand() % maxNum; 
 }

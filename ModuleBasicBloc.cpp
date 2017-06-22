@@ -2,6 +2,13 @@
 #include "ModuleBasicBloc.h"
 #include "ModuleBlocs.h"
 
+blocBasic::blocBasic(colorBlocs newColor, int Nx, int Ny) {
+	color = newColor;
+	x = Nx;
+	y = Ny;
+	viu = true;
+}
+
 void blocBasic::pintarBloc() {
 	switch (color) {
 	case blau:
@@ -74,4 +81,54 @@ void blocBasic::comprobarBorder() {
 			}
 		}
 	}
+}
+
+bool blocBasic::detectarPreColl(posMov pos, int multipliDistancia) {
+	switch (pos) {
+	case UP:
+		if ((this->y - (32 * multipliDistancia)) < 0)
+			return true;
+		for (int i = 0; i < MAX_BLOCS; i++) {
+			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
+				if (App->blocs->blocs[i] != nullptr)
+					if (App->blocs->blocs[i]->y + (32 * multipliDistancia) == this->y && App->blocs->blocs[i]->x == this->x)
+						return true;
+			}
+		}
+		break;
+	case DOWN:
+		if ((this->y + (32 * multipliDistancia)) >= 704)
+			return true;
+		for (int i = 0; i < MAX_BLOCS; i++) {
+			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
+				if (App->blocs->blocs[i] != nullptr)
+					if (App->blocs->blocs[i]->y - (32 * multipliDistancia) == this->y && App->blocs->blocs[i]->x == this->x)
+						return true;
+			}
+		}
+		break;
+	case RIGHT:
+		if ((this->x + (32 * multipliDistancia)) >= 768)
+			return true;
+		for (int i = 0; i < MAX_BLOCS; i++) {
+			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
+				if (App->blocs->blocs[i] != nullptr)
+					if (App->blocs->blocs[i]->x - (32 * multipliDistancia) == this->x && App->blocs->blocs[i]->y == this->y)
+						return true;
+			}
+		}
+		break;
+	case LEFT:
+		if ((this->x - (32 * multipliDistancia)) < 256)
+			return true;
+		for (int i = 0; i < MAX_BLOCS; i++) {
+			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
+				if (App->blocs->blocs[i] != nullptr)
+					if (App->blocs->blocs[i]->x + (32 * multipliDistancia) == this->x && App->blocs->blocs[i]->y == this->y)
+						return true;
+			}
+		}
+		break;
+	}
+	return false;
 }

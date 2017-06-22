@@ -30,6 +30,7 @@ public:
 	bool Update();
 	bool Finish();
 
+	int getRamdomValue(int maxNum);
 };
 
 extern Application* App;

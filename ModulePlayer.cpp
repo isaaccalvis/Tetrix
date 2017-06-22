@@ -13,6 +13,9 @@ bool ModulePlayer::Update(){
 		App->blocs->structBlocActual->moureStruct(RIGHT);
 	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
 		App->blocs->structBlocActual->moureStruct(LEFT);
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+		App->blocs->structBlocActual->rotarStruct();
+
 	return true;
 }
 bool ModulePlayer::Finish() { return true; }
