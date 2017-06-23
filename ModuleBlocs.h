@@ -26,6 +26,8 @@ public:
 	bool retAngleColl(int num) { return angleColl[num]; }
 	void normalFall();
 	void rotarStruct();
+	bool comprobarPosBloc(int x, int y);
+	void eliminarLinies();
 };
 
 class ModuleBlocs : public Module {
@@ -36,6 +38,7 @@ public:
 	bool Init();
 	bool Update();
 	bool Finish();
+	void netejaBlocsMorts();
 
 public:
 	SDL_Texture* texturaBlocBlau = nullptr;
@@ -45,7 +48,7 @@ public:
 	SDL_Texture* texturaBlocVerd = nullptr;
 	SDL_Texture* texturaBlocVermell = nullptr;
 
-	SDL_Rect rectBlocPerTextura = { 0,0,32,32 }; // 32 es l'alçada i amplada dels blocs
+	SDL_Rect rectBlocPerTextura = { 0,0,BLOC_SIZE,BLOC_SIZE };
 	blocBasic* blocs[MAX_BLOCS];
 	blocStruct* structBlocActual = nullptr;
 };

@@ -12,6 +12,8 @@ typedef unsigned int uint;
 #define MAX_BLOCS_STRUCT 4
 #define MAX_BLOCS 352
 
+#define BLOC_SIZE 32
+
 enum colorBlocs {
 	NONE_COLOR = 0,
 	blau,

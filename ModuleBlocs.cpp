@@ -21,22 +21,18 @@ bool ModuleBlocs::Update() {
 
 	// PRINT & CLEAN/DELETE BLOCS
 	for (int i = 0; i < MAX_BLOCS; i++) {
-		if (blocs[i] != nullptr && blocs[i]->estaViu() == false) {	// elimina blocs si esta mort
-			delete blocs[i];
-			blocs[i] = nullptr;
-		}
-		else if (blocs[i] != nullptr)	// pinta blocs
+		//if (blocs[i] != nullptr && blocs[i]->estaViu() == false) {	// elimina blocs si esta mort
+		//	delete blocs[i];
+		//	blocs[i] = nullptr;
+		//}
+		if (blocs[i] != nullptr)	// pinta blocs
 			blocs[i]->pintarBloc();
 	}
 
 	// REFRESH STRUCTURES ( THE PLAYING ONE )
 	if (structBlocActual == nullptr) {
-	//	structBlocActual = new blocStruct(formaStructBloc(App->getRamdomValue(7)+1), colorBlocs(App->getRamdomValue(6) + 1), 288, 0);
-		structBlocActual = new blocStruct(formaStructBloc(3), colorBlocs(App->getRamdomValue(6) + 1), 288, 0);
-
-		blocStruct(recta, blau, 320, 192);
-		blocStruct(te, lila, 448, 192);
-		blocStruct(eleL, groc, 384, 192);
+		structBlocActual = new blocStruct(formaStructBloc(App->getRamdomValue(7) + 1), colorBlocs(App->getRamdomValue(6) + 1), 384, 0);
+		//blocStruct(formaStructBloc(App->getRamdomValue(7) + 1), colorBlocs(App->getRamdomValue(6) + 1), 352, 160);
 	}
 	else {
 		structBlocActual->comprobarXoc();
@@ -49,6 +45,15 @@ bool ModuleBlocs::Finish() {
 	return true;
 }
 
+void ModuleBlocs::netejaBlocsMorts() {
+	for (int i = 0; i < MAX_BLOCS; i++) {
+		if (blocs[i] != nullptr && blocs[i]->estaViu() == false) {	// elimina blocs si esta mort
+			delete blocs[i];
+			blocs[i] = nullptr;
+		}
+	}
+}
+
 blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 	int cont = 0;
 	switch (forma) {
@@ -59,7 +64,7 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (cont < 4) { // tamany de la recta
 				if (App->blocs->blocs[i] == nullptr) {
-					App->blocs->blocs[i] = new blocBasic(color, x + 0, y + (cont * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x + 0, y + (cont * BLOC_SIZE));
 					llocDelsBlocsStruct[cont] = i;
 					cont++;
 				}
@@ -73,14 +78,14 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (cont < 3) {
 				if (App->blocs->blocs[i] == nullptr) {
-					App->blocs->blocs[i] = new blocBasic(color, x + 0, y + (cont * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x + 0, y + (cont * BLOC_SIZE));
 					llocDelsBlocsStruct[cont] = i;
 					cont++;
 				}
 			}
 			else if (cont == 3) {
 				if (App->blocs->blocs[i] == nullptr) {
-					App->blocs->blocs[i] = new blocBasic(color, x + 32, y + (2 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x + BLOC_SIZE, y + (2 * BLOC_SIZE));
 					llocDelsBlocsStruct[cont] = i;
 					cont++;
 				}
@@ -94,14 +99,14 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (cont < 3) {
 				if (App->blocs->blocs[i] == nullptr) {
-					App->blocs->blocs[i] = new blocBasic(color, x + 0, y + (cont * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x + 0, y + (cont * BLOC_SIZE));
 					llocDelsBlocsStruct[cont] = i;
 					cont++;
 				}
 			}
 			else if (cont == 3) {
 				if (App->blocs->blocs[i] == nullptr) {
-					App->blocs->blocs[i] = new blocBasic(color, x - 32, y + (2 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x - BLOC_SIZE, y + (2 * BLOC_SIZE));
 					llocDelsBlocsStruct[cont] = i;
 					cont++;
 				}
@@ -116,13 +121,13 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
 				if (cont == 0)
-					App->blocs->blocs[i] = new blocBasic(color, x + 32, y);
+					App->blocs->blocs[i] = new blocBasic(color, x + BLOC_SIZE, y);
 				else if (cont == 1)
 					App->blocs->blocs[i] = new blocBasic(color, x, y);
 				else if (cont == 2)
-					App->blocs->blocs[i] = new blocBasic(color, x, y + (1 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x, y + (1 * BLOC_SIZE));
 				else if (cont == 3)
-					App->blocs->blocs[i] = new blocBasic(color, x - 32, y + (1 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x - BLOC_SIZE, y + (1 * BLOC_SIZE));
 				cont++;
 				if (cont == 4)
 					i = MAX_BLOCS;
@@ -135,13 +140,13 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
 				if (cont == 0)
-					App->blocs->blocs[i] = new blocBasic(color, x - 32, y);
+					App->blocs->blocs[i] = new blocBasic(color, x - BLOC_SIZE, y);
 				else if (cont == 1)
 					App->blocs->blocs[i] = new blocBasic(color, x, y);
 				else if (cont == 2)
-					App->blocs->blocs[i] = new blocBasic(color, x, y + (1 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x, y + (1 * BLOC_SIZE));
 				else if (cont == 3)
-					App->blocs->blocs[i] = new blocBasic(color, x + 32, y + (1 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x + BLOC_SIZE, y + (1 * BLOC_SIZE));
 				cont++;
 				if (cont == 4)
 					i = MAX_BLOCS;
@@ -154,13 +159,13 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
 				if (cont == 0)
-					App->blocs->blocs[i] = new blocBasic(color, x + 32, y);
+					App->blocs->blocs[i] = new blocBasic(color, x + BLOC_SIZE, y);
 				else if (cont == 1)
 					App->blocs->blocs[i] = new blocBasic(color, x, y);
 				else if (cont == 2)
-					App->blocs->blocs[i] = new blocBasic(color, x, y + (1 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x, y + (1 * BLOC_SIZE));
 				else if (cont == 3)
-					App->blocs->blocs[i] = new blocBasic(color, x + 32, y + (1 * 32));
+					App->blocs->blocs[i] = new blocBasic(color, x + BLOC_SIZE, y + (1 * BLOC_SIZE));
 				cont++;
 				if (cont == 4)
 					i = MAX_BLOCS;
@@ -173,13 +178,13 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 			if (App->blocs->blocs[i] == nullptr) {
 				llocDelsBlocsStruct[cont] = i;
 				if (cont == 0)
-					App->blocs->blocs[i] = new blocBasic(color, x + 32, y);
+					App->blocs->blocs[i] = new blocBasic(color, x + BLOC_SIZE, y);
 				else if (cont == 1)
 					App->blocs->blocs[i] = new blocBasic(color, x, y);
 				else if (cont == 2)
-					App->blocs->blocs[i] = new blocBasic(color, x - 32, y );
+					App->blocs->blocs[i] = new blocBasic(color, x - BLOC_SIZE, y );
 				else if (cont == 3)
-					App->blocs->blocs[i] = new blocBasic(color, x, y + 32);
+					App->blocs->blocs[i] = new blocBasic(color, x, y + BLOC_SIZE);
 				cont++;
 				if (cont == 4)
 					i = MAX_BLOCS;
@@ -199,25 +204,25 @@ void blocStruct::moureStruct(posMov posMov) {
 			break;
 		case UP:
 			for (int i = 0; i < MAX_BLOCS_STRUCT; i++) {
-				App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(0, -32, UP);
+				App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(0, -BLOC_SIZE, UP);
 			}
 			break;
 		case DOWN:
 			if (angleColl[0] == false)
 				for (int i = 0; i < MAX_BLOCS_STRUCT; i++) {
-					App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(0, 32, DOWN);
+					App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(0, BLOC_SIZE, DOWN);
 				}
 			break;
 		case RIGHT:
 			if (angleColl[1] == false)
 				for (int i = 0; i < MAX_BLOCS_STRUCT; i++) {
-					App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(32, 0, RIGHT);
+					App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(BLOC_SIZE, 0, RIGHT);
 				}
 			break;
 		case LEFT:
 			if (angleColl[2] == false)
 				for (int i = 0; i < MAX_BLOCS_STRUCT; i++) {
-					App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(-32, 0, LEFT);
+					App->blocs->blocs[llocDelsBlocsStruct[i]]->moureBloc(-BLOC_SIZE, 0, LEFT);
 				}
 			break;
 		}
@@ -262,8 +267,10 @@ void blocStruct::normalFall() {
 		if (current_time < SDL_GetTicks()) {
 			current_time = SDL_GetTicks() + 1000;
 			moureStruct(DOWN);
-			if (angleColl[0] == true)
+			if (angleColl[0] == true) {
 				App->blocs->structBlocActual = nullptr;
+				eliminarLinies();
+			}
 		}
 	}
 }
@@ -274,150 +281,150 @@ void blocStruct::rotarStruct() {
 		case recta:
 			if ((App->blocs->blocs[llocDelsBlocsStruct[0]]->y + 96) == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(RIGHT, 2) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(RIGHT, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 64;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 64;
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE * 2;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE * 2;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += BLOC_SIZE;
 				}
 			}
 			else if ((App->blocs->blocs[llocDelsBlocsStruct[0]]->x - 96) == App->blocs->blocs[llocDelsBlocsStruct[3]]->x) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 2) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 64;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE * 2;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= BLOC_SIZE * 2;
 				}
 			}
 			break;
 		case eleR:
-			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y - 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y - BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(LEFT, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 0;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= BLOC_SIZE;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 64;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= BLOC_SIZE * 2;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(RIGHT, 2) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x + 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x + BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += BLOC_SIZE;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 64;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += BLOC_SIZE * 2;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= BLOC_SIZE;
 				}
 			}
 			break;
 		case eleL:
-			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y - 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y - BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(LEFT, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= BLOC_SIZE;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 64;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= BLOC_SIZE * 2;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(RIGHT, 2) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 0;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->y)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(RIGHT, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += BLOC_SIZE;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 64;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += BLOC_SIZE * 2;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x + 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x + BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(DOWN, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= BLOC_SIZE;
 				}
 			}
 			break;
 		case escalaR:
-			if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y - 32 == App->blocs->blocs[llocDelsBlocsStruct[1]]->y) {
+			if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y - BLOC_SIZE == App->blocs->blocs[llocDelsBlocsStruct[1]]->y) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += BLOC_SIZE;
 				}
 			}
-			else if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y + 32 == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
+			else if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y + BLOC_SIZE == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(RIGHT, 2) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= BLOC_SIZE;
 				}
 			}
 			break;
 		case escalaL:
-			if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y - 32 == App->blocs->blocs[llocDelsBlocsStruct[1]]->y) {
+			if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y - BLOC_SIZE == App->blocs->blocs[llocDelsBlocsStruct[1]]->y) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[3]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(DOWN, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 64;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += BLOC_SIZE;
 				}
 			}
-			else if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y + 32 == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
+			else if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y + BLOC_SIZE == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(RIGHT, 2) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 64;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE * 2;
 					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 0;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= BLOC_SIZE;
 				}
 			}
 			break;
@@ -425,46 +432,81 @@ void blocStruct::rotarStruct() {
 
 			break;
 		case te:
-			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
+			if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->x)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(UP, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[3]]->x)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[3]]->x)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(RIGHT, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - 32) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->x)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->x - BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[0]]->x)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(DOWN, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y -= BLOC_SIZE;
 				}
 			}
-			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + 32) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->y)) {
+			else if ((App->blocs->blocs[llocDelsBlocsStruct[1]]->y + BLOC_SIZE) == (App->blocs->blocs[llocDelsBlocsStruct[2]]->y)) {
 				if (App->blocs->blocs[llocDelsBlocsStruct[1]]->detectarPreColl(LEFT, 1) == false) {
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= 32;
-					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += 32;
-					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += 32;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[2]]->y -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->x -= BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[3]]->y += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->x += BLOC_SIZE;
+					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE;
 				}
 			}
 			break;
 		}
+}
+
+bool blocStruct::comprobarPosBloc(int x, int y) {
+	for (int i = 0; i < MAX_BLOCS; i++) {
+		if (App->blocs->blocs[i] != nullptr) {
+			if (App->blocs->blocs[i]->y == y && App->blocs->blocs[i]->x == x)
+				return true;
+		}
+	}
+	return false;
+}
+
+void blocStruct::eliminarLinies() {
+	for (int y = 22; y > 0; y--) { // 22 = nombre de files
+		for (int x = 0; x < 16; x++) { // 16 = nombre de columnes
+			if (comprobarPosBloc(x * BLOC_SIZE + 256, (y * BLOC_SIZE) - BLOC_SIZE) == false)
+				x = 18;
+			if (x == 15) {
+				for (int delet = 0; delet < 16; delet++) {
+					for (int x2 = 0; x2 < MAX_BLOCS; x2++) {
+						if (App->blocs->blocs[x2] != nullptr)
+							if (App->blocs->blocs[x2]->y == ((y * BLOC_SIZE) - BLOC_SIZE)) {
+								App->blocs->blocs[x2]->deleteBloc();
+								x2 = MAX_BLOCS;
+							}
+					}
+				}
+				for (int mov = 0; mov < MAX_BLOCS; mov++) {
+					if (App->blocs->blocs[mov] != nullptr)
+						if (App->blocs->blocs[mov]->y < y * BLOC_SIZE)
+							App->blocs->blocs[mov]->moureBloc(0, 32, DOWN);
+				}
+			}
+		}
+	}
 }

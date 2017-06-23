@@ -15,7 +15,7 @@ public:
 	int x, y;
 
 	bool estaViu() { return viu; }
-	void deleteBloc() { viu = false; }
+	void deleteBloc();
 	void changeColor(colorBlocs newColor) { color = newColor; }
 	void pintarBloc();
 	void moureBloc(int x, int y, posMov pos);

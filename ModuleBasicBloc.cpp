@@ -38,8 +38,12 @@ void blocBasic::pintarBloc() {
 	}
 }
 
+void blocBasic::deleteBloc() {
+	viu = false;
+	App->blocs->netejaBlocsMorts();
+}
 void blocBasic::moureBloc(int x, int y, posMov pos) {
-	if (this->x + 32< 768 && pos == RIGHT)
+	if (this->x + BLOC_SIZE < 768 && pos == RIGHT)
 		this->x += x;
 
 	if (this->x > 256 && pos == LEFT)
@@ -65,16 +69,28 @@ void blocBasic::moureBloc(int x, int y, posMov pos) {
 void blocBasic::comprobarBorder() {
 	for (int i = 0; i < MAX_BLOCS; i++) {
 		if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
+			if (this->x + BLOC_SIZE >= 768)
+				App->blocs->structBlocActual->angleCollDet(RIGHT, true);
+			else if (App->blocs->structBlocActual->retAngleColl(1) == false)
+				App->blocs->structBlocActual->angleCollDet(RIGHT, false);
+			if (this->x <= 256)
+				App->blocs->structBlocActual->angleCollDet(LEFT, true);
+			else if (App->blocs->structBlocActual->retAngleColl(2) == false)
+				App->blocs->structBlocActual->angleCollDet(LEFT, false);
+			if (this->y + BLOC_SIZE >= 704)
+				App->blocs->structBlocActual->angleCollDet(DOWN, true);
+			else if (App->blocs->structBlocActual->retAngleColl(0) == false)
+				App->blocs->structBlocActual->angleCollDet(DOWN, false);
 			if (App->blocs->blocs[i] != nullptr) {
-				if ((App->blocs->blocs[i]->x - 32 == this->x && App->blocs->blocs[i]->y == this->y) || this->x + 32 >= 768)
+				if ((App->blocs->blocs[i]->x - BLOC_SIZE == this->x && App->blocs->blocs[i]->y == this->y))
 					App->blocs->structBlocActual->angleCollDet(RIGHT, true);
 				else if (App->blocs->structBlocActual->retAngleColl(1) == false)
 					App->blocs->structBlocActual->angleCollDet(RIGHT, false);
-				if ((App->blocs->blocs[i]->x + 32 == this->x && App->blocs->blocs[i]->y == this->y) || this->x <= 256)
+				if ((App->blocs->blocs[i]->x + BLOC_SIZE == this->x && App->blocs->blocs[i]->y == this->y))
 					App->blocs->structBlocActual->angleCollDet(LEFT, true);
 				else if (App->blocs->structBlocActual->retAngleColl(2) == false)
 					App->blocs->structBlocActual->angleCollDet(LEFT, false);
-				if ((App->blocs->blocs[i]->y - 32 == this->y && App->blocs->blocs[i]->x == this->x) || this->y + 32 >= 704)
+				if ((App->blocs->blocs[i]->y - BLOC_SIZE == this->y && App->blocs->blocs[i]->x == this->x))
 					App->blocs->structBlocActual->angleCollDet(DOWN, true);
 				else if (App->blocs->structBlocActual->retAngleColl(0) == false)
 					App->blocs->structBlocActual->angleCollDet(DOWN, false);
@@ -86,45 +102,45 @@ void blocBasic::comprobarBorder() {
 bool blocBasic::detectarPreColl(posMov pos, int multipliDistancia) {
 	switch (pos) {
 	case UP:
-		if ((this->y - (32 * multipliDistancia)) < 0)
+		if ((this->y - (BLOC_SIZE * multipliDistancia)) < 0)
 			return true;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
 				if (App->blocs->blocs[i] != nullptr)
-					if (App->blocs->blocs[i]->y + (32 * multipliDistancia) == this->y && App->blocs->blocs[i]->x == this->x)
+					if (App->blocs->blocs[i]->y + (BLOC_SIZE * multipliDistancia) == this->y && App->blocs->blocs[i]->x == this->x)
 						return true;
 			}
 		}
 		break;
 	case DOWN:
-		if ((this->y + (32 * multipliDistancia)) >= 704)
+		if ((this->y + (BLOC_SIZE * multipliDistancia)) >= 704)
 			return true;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
 				if (App->blocs->blocs[i] != nullptr)
-					if (App->blocs->blocs[i]->y - (32 * multipliDistancia) == this->y && App->blocs->blocs[i]->x == this->x)
+					if (App->blocs->blocs[i]->y - (BLOC_SIZE * multipliDistancia) == this->y && App->blocs->blocs[i]->x == this->x)
 						return true;
 			}
 		}
 		break;
 	case RIGHT:
-		if ((this->x + (32 * multipliDistancia)) >= 768)
+		if ((this->x + (BLOC_SIZE * multipliDistancia)) >= 768)
 			return true;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
 				if (App->blocs->blocs[i] != nullptr)
-					if (App->blocs->blocs[i]->x - (32 * multipliDistancia) == this->x && App->blocs->blocs[i]->y == this->y)
+					if (App->blocs->blocs[i]->x - (BLOC_SIZE * multipliDistancia) == this->x && App->blocs->blocs[i]->y == this->y)
 						return true;
 			}
 		}
 		break;
 	case LEFT:
-		if ((this->x - (32 * multipliDistancia)) < 256)
+		if ((this->x - (BLOC_SIZE * multipliDistancia)) < 256)
 			return true;
 		for (int i = 0; i < MAX_BLOCS; i++) {
 			if (App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[0] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[1] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[2] != i && App->blocs->structBlocActual->copiaLlocDelsBlocsStruct[3] != i) {
 				if (App->blocs->blocs[i] != nullptr)
-					if (App->blocs->blocs[i]->x + (32 * multipliDistancia) == this->x && App->blocs->blocs[i]->y == this->y)
+					if (App->blocs->blocs[i]->x + (BLOC_SIZE * multipliDistancia) == this->x && App->blocs->blocs[i]->y == this->y)
 						return true;
 			}
 		}
