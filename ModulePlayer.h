@@ -11,6 +11,8 @@ public:
 	bool Init();
 	bool Update();
 	bool Finish();
+
+	int puntuacio;
 private:
 
 };

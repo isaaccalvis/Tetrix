@@ -44,6 +44,12 @@
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Moduls</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleMenu.cpp">
+      <Filter>Moduls</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleStructBloc.cpp">
+      <Filter>Moduls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -71,6 +77,12 @@
       <Filter>Moduls</Filter>
     </ClInclude>
     <ClInclude Include="ModulePlayer.h">
+      <Filter>Moduls</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleMenu.h">
+      <Filter>Moduls</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleStructBlocs.h">
       <Filter>Moduls</Filter>
     </ClInclude>
   </ItemGroup>

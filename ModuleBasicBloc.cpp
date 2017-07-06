@@ -35,6 +35,10 @@ void blocBasic::pintarBloc() {
 		if (App->blocs->texturaBlocVermell != nullptr)
 			App->render->Blit(App->blocs->texturaBlocVermell, x, y, &App->blocs->rectBlocPerTextura);
 		break;
+	case vermellClar:
+		if (App->blocs->texturaBlocVermellClar != nullptr)
+			App->render->Blit(App->blocs->texturaBlocVermellClar, x, y, &App->blocs->rectBlocPerTextura);
+		break;
 	}
 }
 
@@ -52,12 +56,10 @@ void blocBasic::moureBloc(int x, int y, posMov pos) {
 	if (this->y + y < 704 && pos == DOWN)
 		this->y += y;
 
-	if (this->y > 0 && pos == UP)
+	if (pos == UP)
 		this->y += y;
 
 	// CORRECTOR
-	if (this->y < 0)
-		this->y = 1;
 	if (this->y > 704)
 		this->y = 704;
 	if (this->x < 256)

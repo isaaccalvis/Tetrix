@@ -122,8 +122,10 @@
     <ClCompile Include="ModuleBlocs.cpp" />
     <ClCompile Include="ModuleBackground.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleMenu.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
+    <ClCompile Include="ModuleStructBloc.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,8 +135,10 @@
     <ClInclude Include="ModuleBlocs.h" />
     <ClInclude Include="ModuleBackground.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleMenu.h" />
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
+    <ClInclude Include="ModuleStructBlocs.h" />
     <ClInclude Include="ModuleWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

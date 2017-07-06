@@ -24,7 +24,7 @@ public:
 
 	bool Init();
 	bool Update();
-	bool CleanUp();
+	bool Finish();
 
 public:
 	KEY_STATE keyboard[MAX_KEYS];

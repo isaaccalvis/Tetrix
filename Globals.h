@@ -22,6 +22,7 @@ enum colorBlocs {
 	rosa,
 	verd,
 	vermell,
+	vermellClar
 };
 
 enum formaStructBloc {

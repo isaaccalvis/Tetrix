@@ -39,13 +39,13 @@ bool ModuleInput::Update() {
 				keyboard[i] = KEY_IDLE;
 		}
 	}
-	if (keyboard[SDL_SCANCODE_ESCAPE]) {
+	if (keyboard[SDL_SCANCODE_F4] && keyboard[SDL_SCANCODE_LALT]) {
 		return false;
 	}
 	return true;
 }
 
-bool ModuleInput::CleanUp() {
+bool ModuleInput::Finish() {
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }

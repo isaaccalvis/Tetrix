@@ -9,6 +9,7 @@
 #include "ModuleBasicBloc.h"
 #include "ModuleBackground.h"
 #include "ModulePlayer.h"
+#include "ModuleMenu.h"
 
 Application::Application() {
 	int i = 0;
@@ -17,6 +18,7 @@ Application::Application() {
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = background = new ModuleBackground();
 	modules[i++] = blocs = new ModuleBlocs();
+	modules[i++] = menu = new ModuleMenu();
 	modules[i++] = basicBloc = new blocBasic();
 	modules[i++] = player = new ModulePlayer();
 
@@ -32,7 +34,6 @@ bool Application::Init() {
 	srand(time(NULL));
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
-
 	return ret;
 }
 
@@ -56,4 +57,12 @@ bool Application::Finish() {
 
 int Application::getRamdomValue(int maxNum) {
 	return rand() % maxNum; 
+}
+
+void Application::blocUpdate(int time) {
+	current_time_update_bloc = SDL_GetTicks() + time;
+}
+
+void Application::disblocUpdate() {
+	current_time_update_bloc = 0;
 }

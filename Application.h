@@ -1,7 +1,7 @@
 #ifndef __Application_H__
 #define __Application_H__
 #include "Globals.h"
-#define NUM_MODULES 7
+#define NUM_MODULES 8
 
 class Module;
 class ModuleWindow;
@@ -11,6 +11,7 @@ class ModuleBlocs;
 class blocBasic;
 class ModuleBackground;
 class ModulePlayer;
+class ModuleMenu;
 
 class Application {
 public:
@@ -22,6 +23,9 @@ public:
 	blocBasic* basicBloc;
 	ModuleBackground* background;
 	ModulePlayer* player;
+	ModuleMenu* menu;
+
+	int current_time_update_bloc = 0;
 public:
 	Application();
 	~Application();
@@ -31,6 +35,8 @@ public:
 	bool Finish();
 
 	int getRamdomValue(int maxNum);
+	void blocUpdate(int time); // if time == 0, es permanent fins a que el desbloquis
+	void disblocUpdate();	// aixo sha de fer que no ho he acabat ( ni començat casi )
 };
 
 extern Application* App;

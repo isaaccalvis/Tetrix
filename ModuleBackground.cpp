@@ -14,5 +14,6 @@ bool ModuleBackground::Update() {
 }
 
 bool ModuleBackground::Finish() {
+	App->render->Unload(texturaFons);
 	return true;
 }

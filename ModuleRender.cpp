@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "Globals.h"
 #include "ModuleRender.h"
-#include "SDL/include/SDL.h"
+#include "SDL/include/SDL_timer.h"
 #include "ModuleWindow.h"
 
 #include "SDL/include/SDL.h"
@@ -25,12 +25,17 @@ bool ModuleRender::Init() {
 		print("SDL_Render can't load");
 		ret = false;
 	}
+	for (int i = 0; i < MAX_SMALL_ANIMATION; i++)
+		smallAnim[i] = nullptr;
 
 	return ret;
 }
 
 bool ModuleRender::Update() {
 	SDL_RenderClear(renderer);
+	for (int i = 0; i < MAX_SMALL_ANIMATION; i++)
+		if (smallAnim[i] != nullptr)
+			smallAnim[i]->animationUpdate();
 	return true;
 }
 
@@ -40,11 +45,15 @@ bool ModuleRender::PostUpdate() {
 }
 
 bool ModuleRender::Finish() {
-	SDL_DestroyRenderer(renderer);
+	for (unsigned short i = 0; i < MAX_SMALL_ANIMATION; i++) {
+		if (smallAnim[i] != nullptr)
+			delete smallAnim[i];
+	}
 	for (unsigned short i = 0; i < MAX_TEXTURES; i++) {
 		if (textures[i] != nullptr)
 			SDL_DestroyTexture(textures[i]);
 	}
+	SDL_DestroyRenderer(renderer);
 	return true;
 }
 
@@ -78,4 +87,57 @@ SDL_Texture* ModuleRender::newTexture(const char* direccio) {
 		textures[last_texture++] = texture;
 	SDL_FreeSurface(surface);
 	return texture;
+}
+
+void ModuleRender::Unload(SDL_Texture* texture) {
+	for (int i = 0; i < MAX_TEXTURES; ++i){
+		if (texture == textures[i] && textures[i] != nullptr) {
+			SDL_DestroyTexture(textures[i]);
+			textures[i] = nullptr;
+			break;
+		}
+	}
+}
+
+void ModuleRender::newSmallAnimation(SDL_Texture* textura, int x, int y, SDL_Rect* rect, int timePerAnim, int numImages) {
+	for (int i = 0; i < MAX_SMALL_ANIMATION; i++) {
+		if (smallAnim[i] == nullptr) {
+			smallAnim[i] = new smallAnimation(textura, x, y, rect, timePerAnim, numImages);
+			break;
+		}
+	}
+}
+
+void ModuleRender::deleteSmallAnimation(SDL_Texture* textura) {
+	for (int i = 0; i < MAX_SMALL_ANIMATION; i++) {
+		if (smallAnim[i] != nullptr)
+			if (smallAnim[i]->textura == textura) {
+				delete smallAnim[i];
+				smallAnim[i] = nullptr;
+			}
+	}
+}
+
+smallAnimation::smallAnimation(SDL_Texture* textura, int x, int y, SDL_Rect* rect, int timePerAnim, int numImages) {
+	this->textura = textura;
+	this->rect = *rect;
+	this->x = x;
+	this->y = y;
+	this->timePerAnim = timePerAnim;
+	this->numImages = numImages;
+	this->actualImage = numImages;
+	time = 0;
+}
+
+void smallAnimation::animationUpdate() {
+		if (SDL_GetTicks() > time) {
+			time = SDL_GetTicks() + timePerAnim;
+			actualImage--;
+			if (actualImage <= 0) {
+				rect.x -= rect.w * numImages;
+				actualImage = numImages;
+			}
+			rect.x += rect.w;
+		}
+		App->render->Blit(textura, x, y, &rect);
 }
