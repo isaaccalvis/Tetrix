@@ -38,6 +38,8 @@ public:
 	SDL_Rect camera;
 	SDL_Texture* textures[MAX_TEXTURES];
 	unsigned short last_texture = 0;
+	SDL_Texture* textura_fonts;	// inicio aqui la textura fonts perk al modul fonts no em deixa ...
+
 private:
 	smallAnimation* smallAnim[MAX_SMALL_ANIMATION];
 };

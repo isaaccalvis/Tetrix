@@ -3,6 +3,7 @@
 #include "ModuleBasicBloc.h"
 #include "ModuleStructBlocs.h"
 #include "ModulePlayer.h"
+#include "ModuleFonts.h"
 #include "SDL\include\SDL_timer.h"
 
 blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
@@ -462,8 +463,11 @@ void blocStruct::eliminarLinies() {
 							App->blocs->blocs[mov]->moureBloc(0, 32, DOWN);
 				}
 				App->player->puntuacio += 100;
-				print("%i\n", App->player->puntuacio);
-				y = 22; // Sha de reiniciar Y perk baixa la fila, i lha de re-comprobar
+				App->fonts->deleteFrase("puntuacio");
+				App->fonts->deleteFrase("2puntuacio");
+				App->fonts->addFrase(15, 500,"puntuacio");
+				App->fonts->addFrase(15, 550, App->fonts->transformNumIntoChar(App->player->puntuacio), "2puntuacio");
+				y = 23; // Sha de reiniciar Y perk baixa la fila, i lha de re-comprobar
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 #ifndef __Application_H__
 #define __Application_H__
 #include "Globals.h"
-#define NUM_MODULES 8
+#define NUM_MODULES 9
 
 class Module;
 class ModuleWindow;
@@ -12,6 +12,7 @@ class blocBasic;
 class ModuleBackground;
 class ModulePlayer;
 class ModuleMenu;
+class ModuleFonts;
 
 class Application {
 public:
@@ -24,6 +25,7 @@ public:
 	ModuleBackground* background;
 	ModulePlayer* player;
 	ModuleMenu* menu;
+	ModuleFonts* fonts;
 
 	int current_time_update_bloc = 0;
 public:

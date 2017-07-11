@@ -10,6 +10,7 @@
 #include "ModuleBackground.h"
 #include "ModulePlayer.h"
 #include "ModuleMenu.h"
+#include "ModuleFonts.h"
 
 Application::Application() {
 	int i = 0;
@@ -17,11 +18,11 @@ Application::Application() {
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = background = new ModuleBackground();
+	modules[i++] = fonts = new ModuleFonts();
 	modules[i++] = blocs = new ModuleBlocs();
 	modules[i++] = menu = new ModuleMenu();
 	modules[i++] = basicBloc = new blocBasic();
 	modules[i++] = player = new ModulePlayer();
-
 }
 
 Application::~Application() {
@@ -33,7 +34,8 @@ bool Application::Init() {
 	bool ret = true;
 	srand(time(NULL));
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
-		ret = modules[i]->Init();
+		if (modules[i] != background)
+			ret = modules[i]->Init();
 	return ret;
 }
 
@@ -56,7 +58,7 @@ bool Application::Finish() {
 }
 
 int Application::getRamdomValue(int maxNum) {
-	return rand() % maxNum; 
+	return rand() % maxNum;
 }
 
 void Application::blocUpdate(int time) {

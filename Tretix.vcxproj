@@ -76,6 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +122,7 @@
     <ClCompile Include="ModuleBasicBloc.cpp" />
     <ClCompile Include="ModuleBlocs.cpp" />
     <ClCompile Include="ModuleBackground.cpp" />
+    <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleMenu.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
@@ -134,6 +136,7 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleBlocs.h" />
     <ClInclude Include="ModuleBackground.h" />
+    <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleMenu.h" />
     <ClInclude Include="ModulePlayer.h" />
