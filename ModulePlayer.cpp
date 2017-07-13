@@ -8,6 +8,7 @@ bool ModulePlayer::Init() {
 	puntuacio = 0;
 	return true;
 }
+
 bool ModulePlayer::Update(){
 	if (App->blocs->IsEnabled()) {
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN)
@@ -33,24 +34,41 @@ bool ModulePlayer::Update(){
 				App->menu->startGame();
 				break;
 			case 2:
-				print("options\n");
+				App->menu->posicioEnMenu = 4; // Aixo es entrar en mode Options
 				break;
 			case 3:
 				return false;
 				break;
+			case 4:	// Aixo es en Options
+				App->blocs->tipusBlocEsteticActual = (TipusBlocEstetic)App->menu->posicioSelectorBlocsOptions;
+				break;
 			}
 		}
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->menu->posicioEnMenu < 4) {
 			App->menu->posicioEnMenu--;
 			if (App->menu->posicioEnMenu < 0)
 				App->menu->posicioEnMenu = 3;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN && App->menu->posicioEnMenu < 4) {
 			App->menu->posicioEnMenu++;
 			if (App->menu->posicioEnMenu > 3)
 				App->menu->posicioEnMenu = 0;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_ESCAPE] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN && App->menu->posicioEnMenu == 4) {
+			App->menu->posicioSelectorBlocsOptions--;
+			if (App->menu->posicioSelectorBlocsOptions < 0)
+				App->menu->posicioSelectorBlocsOptions = 4;
+		}
+		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN && App->menu->posicioEnMenu == 4) {
+			App->menu->posicioSelectorBlocsOptions++;
+			if (App->menu->posicioSelectorBlocsOptions > 4)
+				App->menu->posicioSelectorBlocsOptions = 0;
+		}
+		if (App->input->keyboard[SDL_SCANCODE_ESCAPE] == KEY_STATE::KEY_DOWN && App->menu->posicioEnMenu == 4) {
+			App->menu->posicioSelectorBlocsOptions = 0;
+			App->menu->posicioEnMenu = 2;
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_ESCAPE] == KEY_STATE::KEY_DOWN)
 			return false;
 	}
 	return true;

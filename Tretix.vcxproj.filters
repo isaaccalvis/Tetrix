@@ -12,6 +12,15 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Moduls\Blocs">
+      <UniqueIdentifier>{e628468c-c806-42e8-8004-7f57a79bd509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Moduls\Menu&amp;Backgrounds">
+      <UniqueIdentifier>{c9a2b465-a28f-472e-aa24-b06d872155b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Moduls\Basic Mechanics">
+      <UniqueIdentifier>{38ac8238-d2be-42e3-b6d1-7cd6a337129f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -20,76 +29,76 @@
     <ClCompile Include="Globals.h">
       <Filter>Bases</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleWindow.cpp">
-      <Filter>Moduls</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleInput.cpp">
-      <Filter>Moduls</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleRender.cpp">
-      <Filter>Moduls</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleBlocs.cpp">
-      <Filter>Moduls</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleBackground.cpp">
-      <Filter>Moduls</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleBasicBloc.cpp">
-      <Filter>Moduls</Filter>
     </ClCompile>
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Moduls</Filter>
     </ClCompile>
     <ClCompile Include="ModuleMenu.cpp">
-      <Filter>Moduls</Filter>
+      <Filter>Moduls\Menu&amp;Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleBasicBloc.cpp">
+      <Filter>Moduls\Blocs</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleBlocs.cpp">
+      <Filter>Moduls\Blocs</Filter>
     </ClCompile>
     <ClCompile Include="ModuleStructBloc.cpp">
-      <Filter>Moduls</Filter>
+      <Filter>Moduls\Blocs</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleBackground.cpp">
+      <Filter>Moduls\Menu&amp;Backgrounds</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
-      <Filter>Moduls</Filter>
+      <Filter>Moduls\Basic Mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInput.cpp">
+      <Filter>Moduls\Basic Mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleRender.cpp">
+      <Filter>Moduls\Basic Mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleWindow.cpp">
+      <Filter>Moduls\Basic Mechanics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
       <Filter>Bases</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
-      <Filter>Moduls</Filter>
-    </ClInclude>
     <ClInclude Include="Module.h">
-      <Filter>Moduls</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleInput.h">
-      <Filter>Moduls</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleRender.h">
-      <Filter>Moduls</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleBlocs.h">
-      <Filter>Moduls</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleBackground.h">
-      <Filter>Moduls</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleBasicBloc.h">
       <Filter>Moduls</Filter>
     </ClInclude>
     <ClInclude Include="ModulePlayer.h">
       <Filter>Moduls</Filter>
     </ClInclude>
     <ClInclude Include="ModuleMenu.h">
-      <Filter>Moduls</Filter>
+      <Filter>Moduls\Menu&amp;Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleBasicBloc.h">
+      <Filter>Moduls\Blocs</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleBlocs.h">
+      <Filter>Moduls\Blocs</Filter>
     </ClInclude>
     <ClInclude Include="ModuleStructBlocs.h">
-      <Filter>Moduls</Filter>
+      <Filter>Moduls\Blocs</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleBackground.h">
+      <Filter>Moduls\Menu&amp;Backgrounds</Filter>
     </ClInclude>
     <ClInclude Include="ModuleFonts.h">
-      <Filter>Moduls</Filter>
+      <Filter>Moduls\Basic Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleInput.h">
+      <Filter>Moduls\Basic Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleRender.h">
+      <Filter>Moduls\Basic Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
+      <Filter>Moduls\Basic Mechanics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

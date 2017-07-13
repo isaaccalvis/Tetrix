@@ -5,7 +5,7 @@
 #include "ModuleRender.h"
 
 bool ModuleFonts::Init() {
-	App->render->textura_fonts = App->render->newTexture("Resources/Sprites/tetrix_Font.png");
+	App->render->textura_fonts = App->render->newTexture("Resources/Sprites/Fonts/tetrix_Font.png");
 	letterW = 8;
 	letterH = 8;
 	base = "abcdefghijklmnopqrstuvwxyz123456789- *";

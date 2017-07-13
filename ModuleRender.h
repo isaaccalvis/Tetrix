@@ -3,7 +3,7 @@
 #include "Module.h"
 #include "SDL\include\SDL_rect.h"
 
-#define MAX_TEXTURES 50
+#define MAX_TEXTURES 75
 #define MAX_SMALL_ANIMATION 10
 
 struct SDL_Renderer;

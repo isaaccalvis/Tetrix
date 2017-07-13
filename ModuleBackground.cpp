@@ -4,7 +4,7 @@
 #include "ModuleFonts.h"
 
 bool ModuleBackground::Init() {
-	texturaFons = App->render->newTexture("Resources/Sprites/fonsPantalla.png");
+	texturaFons = App->render->newTexture("Resources/Sprites/BackGrounds/fonsPantalla.png");
 	App->fonts->deleteFrase("puntuacio");
 	App->fonts->addFrase(15, 500, "puntuacio");
 	tamanyPantalla = { 0,0,768,720 };

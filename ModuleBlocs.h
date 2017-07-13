@@ -7,6 +7,14 @@
 #include "ModuleStructBlocs.h"
 #include "ModuleRender.h"
 
+enum TipusBlocEstetic {
+	BASIC,
+	CASTELLAR,
+	CUADRAT,
+	PUR,
+	TRESOR
+};
+
 class ModuleBlocs : public Module {
 public:
 	ModuleBlocs(){}
@@ -31,5 +39,6 @@ public:
 	blocStruct* structBlocActual = nullptr;
 	blocStruct* structBlocSeguent = nullptr;
 	formaStructBloc nextStruct;
+	TipusBlocEstetic tipusBlocEsteticActual = BASIC;
 };
 #endif

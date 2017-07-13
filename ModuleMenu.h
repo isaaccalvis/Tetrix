@@ -24,9 +24,14 @@ public:
 	SDL_Texture* sprite_ExitNo = nullptr;
 	SDL_Texture* sprite_Configuration = nullptr;
 	SDL_Texture* sprite_ConfigurationNo = nullptr;
+	SDL_Texture* sprite_SelectorSprite = nullptr;
+	SDL_Texture* sprite_MostraBlocs = nullptr;
 	SDL_Rect rectTamanyPantalla = { 0,0,768,720 };
 	SDL_Rect rectTamanyIconesMenu = { 0,0,256,64 };
+	SDL_Rect rectTamanySelectorIcones = { 0,0,40,40 };
+	SDL_Rect rectTamanyMostraBlocs = { 0,0,200,32 };
 	int posicioEnMenu = 0;
+	int posicioSelectorBlocsOptions = 0;
 };
 
 #endif

@@ -8,14 +8,53 @@
 #include "SDL\include\SDL_timer.h"
 
 bool ModuleBlocs::Init() {
-	texturaBlocBlau = App->render->newTexture("Resources/Sprites/blocBlau_mitja.png");
-	texturaBlocGroc = App->render->newTexture("Resources/Sprites/blocGroc_mitja.png");
-	texturaBlocLila = App->render->newTexture("Resources/Sprites/blocLila_mitja.png");
-	texturaBlocRosa = App->render->newTexture("Resources/Sprites/blocRosa_mitja.png");
-	texturaBlocVerd = App->render->newTexture("Resources/Sprites/blocVerd_mitja.png");
-	texturaBlocVermell = App->render->newTexture("Resources/Sprites/blocVermell_mitja.png");
-	texturaBlocVermellClar = App->render->newTexture("Resources/Sprites/blocVermellClar_mitja.png");
-
+	switch (tipusBlocEsteticActual) {
+	case BASIC:
+		texturaBlocBlau = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocBlau_basic.png");
+		texturaBlocGroc = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocGroc_basic.png");
+		texturaBlocLila = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocLila_basic.png");
+		texturaBlocRosa = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocRosa_basic.png");
+		texturaBlocVerd = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVerd_basic.png");
+		texturaBlocVermell = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermell_basic.png");
+		texturaBlocVermellClar = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermellClar_basic.png");
+		break;
+	case CASTELLAR:
+		texturaBlocBlau = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocBlau_Castellar.png");
+		texturaBlocGroc = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocGroc_Castellar.png");
+		texturaBlocLila = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocLila_Castellar.png");
+		texturaBlocRosa = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocRosa_Castellar.png");
+		texturaBlocVerd = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVerd_Castellar.png");
+		texturaBlocVermell = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermell_Castellar.png");
+		texturaBlocVermellClar = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermellClar_Castellar.png");
+		break;
+	case CUADRAT:
+		texturaBlocBlau = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocBlau_cuadrat.png");
+		texturaBlocGroc = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocGroc_cuadrat.png");
+		texturaBlocLila = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocLila_cuadrat.png");
+		texturaBlocRosa = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocRosa_cuadrat.png");
+		texturaBlocVerd = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVerd_cuadrat.png");
+		texturaBlocVermell = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermell_cuadrat.png");
+		texturaBlocVermellClar = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermellClar_cuadrat.png");
+		break;
+	case PUR:
+		texturaBlocBlau = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocBlau_Pur.png");
+		texturaBlocGroc = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocGroc_Pur.png");
+		texturaBlocLila = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocLila_Pur.png");
+		texturaBlocRosa = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocRosa_Pur.png");
+		texturaBlocVerd = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVerd_Pur.png");
+		texturaBlocVermell = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermell_Pur.png");
+		texturaBlocVermellClar = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermellClar_Pur.png");
+		break;
+	case TRESOR:
+		texturaBlocBlau = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocBlau_Tresor.png");
+		texturaBlocGroc = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocGroc_Tresor.png");
+		texturaBlocLila = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocLila_Tresor.png");
+		texturaBlocRosa = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocRosa_Tresor.png");
+		texturaBlocVerd = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVerd_Tresor.png");
+		texturaBlocVermell = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermell_Tresor.png");
+		texturaBlocVermellClar = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermellClar_Tresor.png");
+		break;
+	}
 	for (int i = 0; i < MAX_BLOCS; i++)
 		blocs[i] = nullptr;
 	nextStruct = formaStructBloc(App->getRamdomValue(7) + 1);
