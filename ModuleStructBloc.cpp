@@ -143,6 +143,17 @@ blocStruct::blocStruct(formaStructBloc forma, colorBlocs color, int x, int y) {
 			}
 		}
 		break;
+	case extraBloc_Sol:
+		formaStruct = forma;
+		for (int i = 0; i < MAX_BLOCS; i++) {
+			if (App->blocs->blocs[i] == nullptr) {
+				llocDelsBlocsStruct[cont] = i;
+				App->blocs->blocs[i] = new blocBasic(color, x + BLOC_SIZE, y);
+				i = MAX_BLOCS;
+				llocDelsBlocsStruct[1] = 0;
+			}
+		}
+		break;
 	}
 	for (int i = 0; i < 3; i++)
 		angleColl[i] = false;
@@ -218,7 +229,10 @@ void blocStruct::angleCollDet(posMov posColl, bool det) {
 void blocStruct::normalFall() {
 	if (App->blocs->structBlocActual != nullptr) {
 		if (current_time < SDL_GetTicks()) {
-			current_time = SDL_GetTicks() + 800;
+			if (App->blocs->total_blocs_fall < 250)
+				current_time = SDL_GetTicks() + 700 - App->blocs->total_blocs_fall * 2;
+			else
+				current_time = SDL_GetTicks() + 200;
 			App->blocs->structBlocActual->comprobarXoc();
 			moureStruct(DOWN);
 			if (angleColl[0] == true) {
@@ -374,7 +388,7 @@ void blocStruct::rotarStruct() {
 				}
 			}
 			else if (App->blocs->blocs[llocDelsBlocsStruct[2]]->y + BLOC_SIZE == App->blocs->blocs[llocDelsBlocsStruct[3]]->y) {
-				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(RIGHT, 2) == false) {
+				if (App->blocs->blocs[llocDelsBlocsStruct[2]]->detectarPreColl(UP, 1) == false && App->blocs->blocs[llocDelsBlocsStruct[0]]->detectarPreColl(LEFT, 2) == false) {
 					App->blocs->blocs[llocDelsBlocsStruct[1]]->x -= BLOC_SIZE;
 					App->blocs->blocs[llocDelsBlocsStruct[1]]->y -= BLOC_SIZE;
 					App->blocs->blocs[llocDelsBlocsStruct[0]]->x -= BLOC_SIZE * 2;
@@ -428,6 +442,9 @@ void blocStruct::rotarStruct() {
 					App->blocs->blocs[llocDelsBlocsStruct[0]]->y += BLOC_SIZE;
 				}
 			}
+			break;
+		default:
+			print("No pot rotar\n");
 			break;
 		}
 }

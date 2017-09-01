@@ -33,6 +33,9 @@ public:
 	SDL_Texture* texturaBlocVerd = nullptr;
 	SDL_Texture* texturaBlocVermell = nullptr;
 	SDL_Texture* texturaBlocVermellClar = nullptr;
+	SDL_Texture* texturaExtraBlocSol = nullptr;
+	SDL_Texture* texturaExtraBlocDinamita = nullptr;
+	SDL_Texture* texturaExtraBlocTaladru = nullptr;
 
 	SDL_Rect rectBlocPerTextura = { 0,0,BLOC_SIZE,BLOC_SIZE };
 	blocBasic* blocs[MAX_BLOCS];
@@ -40,5 +43,6 @@ public:
 	blocStruct* structBlocSeguent = nullptr;
 	formaStructBloc nextStruct;
 	TipusBlocEstetic tipusBlocEsteticActual = BASIC;
+	int total_blocs_fall;
 };
 #endif

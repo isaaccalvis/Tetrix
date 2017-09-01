@@ -39,6 +39,18 @@ void blocBasic::pintarBloc() {
 		if (App->blocs->texturaBlocVermellClar != nullptr)
 			App->render->Blit(App->blocs->texturaBlocVermellClar, x, y, &App->blocs->rectBlocPerTextura);
 		break;
+	case colorExtraBloc_Sol:
+		if (App->blocs->texturaBlocVermellClar != nullptr)
+			App->render->Blit(App->blocs->texturaBlocVermellClar, x, y, &App->blocs->rectBlocPerTextura);
+		break;
+	case colorExtraBloc_Dinamita:
+		if (App->blocs->texturaBlocVermellClar != nullptr)
+			App->render->Blit(App->blocs->texturaBlocVermellClar, x, y, &App->blocs->rectBlocPerTextura);
+		break;
+	case colorExtraBloc_Taladru:
+		if (App->blocs->texturaBlocVermellClar != nullptr)
+			App->render->Blit(App->blocs->texturaBlocVermellClar, x, y, &App->blocs->rectBlocPerTextura);
+		break;
 	}
 }
 

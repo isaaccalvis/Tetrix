@@ -22,7 +22,10 @@ enum colorBlocs {
 	rosa,
 	verd,
 	vermell,
-	vermellClar
+	vermellClar,
+	colorExtraBloc_Sol,
+	colorExtraBloc_Dinamita,
+	colorExtraBloc_Taladru
 };
 
 enum formaStructBloc {
@@ -33,7 +36,10 @@ enum formaStructBloc {
 	escalaR,
 	escalaL,
 	cuadrat,
-	te
+	te,
+	extraBloc_Sol,
+	extraBloc_Dinamita,
+	extraBloc_Taladru
 };
 
 enum posMov {

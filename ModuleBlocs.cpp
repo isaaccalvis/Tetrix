@@ -8,6 +8,10 @@
 #include "SDL\include\SDL_timer.h"
 
 bool ModuleBlocs::Init() {
+	texturaExtraBlocSol = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocExtres/blocSingleBloc.png");
+	texturaExtraBlocDinamita = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocExtres/blocDinamita.png");
+	texturaExtraBlocTaladru = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocExtres/blocTaladro.png");
+
 	switch (tipusBlocEsteticActual) {
 	case BASIC:
 		texturaBlocBlau = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocBlau_basic.png");
@@ -55,9 +59,11 @@ bool ModuleBlocs::Init() {
 		texturaBlocVermellClar = App->render->newTexture("Resources/Sprites/SpriteBlocs/blocVermellClar_Tresor.png");
 		break;
 	}
+	total_blocs_fall = 0;
 	for (int i = 0; i < MAX_BLOCS; i++)
 		blocs[i] = nullptr;
 	nextStruct = formaStructBloc(App->getRamdomValue(7) + 1);
+	total_blocs_fall = 0;
 	return true;
 }
 
@@ -69,10 +75,10 @@ bool ModuleBlocs::Update() {
 
 	// REFRESH STRUCTURES ( THE PLAYING ONE )
 	if (structBlocActual == nullptr) {
-		structBlocActual = new blocStruct(nextStruct, colorBlocs((int)nextStruct), 384, 0);
+		structBlocActual = new blocStruct(extraBloc_Sol, colorBlocs((int)nextStruct), 384, 0);
 		nextStruct = formaStructBloc(App->getRamdomValue(7) + 1);
 		structBlocSeguent = new blocStruct(nextStruct, colorBlocs((int)nextStruct), 95, 90);
-
+		total_blocs_fall++;
 	}
 	else {
 		for (int i = 0; i < 16; i++)
@@ -101,6 +107,9 @@ bool ModuleBlocs::Finish() {
 	App->render->Unload(texturaBlocVerd);
 	App->render->Unload(texturaBlocVermell);
 	App->render->Unload(texturaBlocVermellClar);
+	App->render->Unload(texturaExtraBlocSol);
+	App->render->Unload(texturaExtraBlocDinamita);
+	App->render->Unload(texturaExtraBlocTaladru);
 
 	return true;
 }
